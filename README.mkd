@@ -1,4 +1,13 @@
-3d Models
+Miscellaneous 3d Models for 3d printer
+
+All these models have been successfully printed on a Da Vinci 3D printer. I use OpenSCAD to build the models and Slic3r to generate the g-code.
+
+* coin_cell_holder is a nice little battery holder for a Teensy 3.x RTC battery. It mounts right on the Teensy, which is great for bread-boarding the Teensy while maintaining the RTC time. In a PCB mount, it saves valuable board space.
+ 
+* solar2 is a simple board to mount a pair of solar cells. There is a recess behind the cells for the wiring and diode.
+
+* solar_box has nothing to do with solar cells; it's a housing for my Teensy-based aquarium light controller. The light consists of strips of RGB LEDs that the controller adjusts via PWM and drives the LEDs through a Darlington array. It simulates sunrise and sunset at preset times (thus the name 'solar').
+
 
 copyright 2014 Bob Dougherty
 
