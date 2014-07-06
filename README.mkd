@@ -8,6 +8,8 @@ All these models have been successfully printed on a Da Vinci 3D printer. I use 
 
 * solar_box has nothing to do with solar cells; it's a housing for my Teensy-based aquarium light controller. The light consists of strips of RGB LEDs that the controller adjusts via PWM and drives the LEDs through a Darlington array. It simulates sunrise and sunset at preset times (thus the name 'solar').
 
+* skull_shaker is a left/right pair of housings for Piezo transducers that we use for the CNI bone-conduction auditory stimulus system.
+
 
 copyright 2014 Bob Dougherty
 
