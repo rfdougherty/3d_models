@@ -10,6 +10,7 @@ All these models have been successfully printed on a Da Vinci 3D printer. I use 
 
 * skull_shaker is a left/right pair of housings for Piezo transducers that we use for the CNI bone-conduction auditory stimulus system.
 
+* CNI_touch is a work-in-progress for a housing for the CNI touchpad response device.
 
 copyright 2014 Bob Dougherty
 
