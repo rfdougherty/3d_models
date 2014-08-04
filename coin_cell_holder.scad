@@ -16,18 +16,18 @@ CR1632 cell holder:
 */
 
 battery_diameter	= 16.0;	// Diameter of battery
-battery_height = 3.2;	// Thickness of battery
+battery_height = 3.5;	// Thickness of battery
 tolerance = 0.5;	// Make things a little looser
-wall_thickness = 1.3;	// Wall thickness
-wire_diameter = 1.4;	// Thickness of wire openings
+wall_thickness = 1.2;	// Wall thickness
+wire_diameter = 1.5;	// Thickness of wire openings
 number_of_cells = 1;		// How many cells will be stacked
 pitch = 1.27; // 0.1" pitch = 2.54mm / 2 = 1.27
 // For a base on both sides:
 // base_width = pitch*9;
 // base_offset = 0.25;
-base_width = pitch*7;
+base_width = pitch*7+0.8;
 base_length = pitch*11; // pitch*17 for a wide mounting base
-base_offset = -0.4;
+base_offset = -0.8;
 
 extra_length	= -battery_diameter/2+4;	// Extends the opening to shroud the battery
 
