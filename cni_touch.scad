@@ -1,14 +1,20 @@
 hole_size = 3;
-side_wall = 24.0;
-bottom_wall = 5;
-touch_width = 150.0;
-touch_length = 115.5;
-touch_depth = 2.0;
-button_position = 100.0;
-wire_cut_depth = 3.0;
-wire_cut_width = 3.0;
+side_wall = 17.0;
+bottom_wall = 9.0;
+touch_width = 166.0;
+touch_length = 107.0;
+touch_depth = 4.0;
+wire_cut_depth = 4.0;
+wire_cut_width = 4.0;
 side_fillet_radius = 3.0;
 bottom_fillet_radius = 3.0;
+button_side = 13.0;
+button_base_depth = 11.5;
+button_cap_depth = 4.5;
+button_cap_radius = 7.0;
+wire_offset = touch_length/2 + side_wall;
+touch_wire_cut_width = 20.0;
+touch_wire_cut_length = 10.0;
 
 // Set the angular resolution ($fn segments per 360 deg)
 $fn = 20;
@@ -16,6 +22,7 @@ $fn = 20;
 box_height = bottom_wall + touch_depth;
 box_width = touch_width+side_wall*2;
 box_length = touch_length+side_wall*2;
+button_position = box_length/2;
 
 module fillet(r, h) {
     translate([r / 2, r / 2, 0])
@@ -36,16 +43,30 @@ difference(){
 
     // cut for the touch screen
     translate([side_wall, side_wall, box_height-touch_depth])
-      cube([touch_width, touch_length, touch_depth+0.1]);
+      cube([touch_width, touch_length, touch_depth+0.01]);
 
-    // outside cut for wires
-    translate([box_width/2, 0, box_height-wire_cut_depth])
-      cube([wire_cut_width, button_position+wire_cut_width+.1, wire_cut_depth*2]);
+    // cut for wires
+    translate([wire_offset-wire_cut_width/2, 0, box_height-touch_depth-wire_cut_depth+0.01])
+      cube([wire_cut_width, button_position+.1, wire_cut_depth]);
 
-    // inside cut for wires
-    translate([side_wall/2, button_position, box_height-wire_cut_depth])
-      cube([box_width-side_wall, wire_cut_width, wire_cut_depth*2]);
+    // cut for touch screen wire harness
+    translate([wire_offset-touch_wire_cut_width/2, side_wall-touch_wire_cut_length/2, box_height-touch_depth-wire_cut_depth+0.01])
+      cube([touch_wire_cut_width, touch_wire_cut_length, wire_cut_depth]);
 
+    // cut for button wires
+    translate([side_wall/2, button_position-wire_cut_width/2, box_height-touch_depth-wire_cut_depth+0.01])
+      cube([box_width-side_wall, wire_cut_width, wire_cut_depth]);
+
+    // cut for button bases
+    translate([side_wall/2-button_side/2, button_position-button_side/2, box_height-button_base_depth+0.01])
+      cube([button_side, button_side, button_base_depth]);
+    translate([box_width-side_wall/2-button_side/2, button_position-button_side/2, box_height-button_base_depth+0.01])
+      cube([button_side, button_side, button_base_depth]);
+
+    translate([side_wall/2, button_position, box_height-button_cap_depth+0.01])
+      cylinder(r=button_cap_radius, h=button_cap_depth, $fn=100);
+    translate([box_width-side_wall/2, button_position, box_height-button_cap_depth+0.01])
+      cylinder(r=button_cap_radius, h=button_cap_depth, $fn=100);
     // holes
 //    for (x=[-1,0,1], y=[-1,0,1] ){
 //        translate([x*hole_size*2+box_width/2, y*hole_size*2+box_length/2+trans_base/2, -0.1])
