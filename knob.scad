@@ -4,25 +4,25 @@
 
 
 // Diameter of the hole on the bottom (in mm).
-HoleDiameter = 2.5;
+HoleDiameter = 3.0;
 
 // Depth of the hole in the bottom (in mm).  If you want the hole to go all the way through then set this to a number larger than the total height of the object.
-HoleDepth = 5;
+HoleDepth = 8;
 
 // If you want a D-shaped hole, set this to the thickness of the flat side (in mm).  Larger values for the flat make the hole smaller.
 HoleFlatThickness = 0;
 
 // Height (in mm).  If dome cap is selected, it is not included in height.  The shaft length is also not counted.
-KnobHeight = 8;
+KnobHeight = 12;
 
 // Diameter of base of round part of knob (in mm).  (Knurled ridges are not included in this measurement.)
-KnobDiameter = 6.6;
+KnobDiameter = 7.0;
 
 // Length of the shaft on the bottom of the knob (in mm).  If you don't want a shaft, set this value to zero.
-ShaftLength = 8;
+ShaftLength = 10;
 
 // Diameter of the shaft on the bottom of the knob (in mm).  (ShaftLength must be non-zero.)
-ShaftDiameter = 6;
+ShaftDiameter = 7;
 
 // Shape of top of knob.  "Recessed" type can be painted.
 CapType = 2;	// [0:Flat, 1:Recessed, 2:Dome]
@@ -51,7 +51,7 @@ RecessOuterRadius = 20;
 Pointer2 = 0;	// [0:No, 1:Yes]
 
 // Do you want finger ridges around the knob?
-Knurled = 1;	// [0:No, 1:Yes]
+Knurled = 0;	// [0:No, 1:Yes]
 
 // 0 = A cylindrical knob, any other value will taper the knob.
 TaperPercentage = 20; // [0:0%, 10:10%, 20:20%, 30:30%, 40:40%, 50:50%]
