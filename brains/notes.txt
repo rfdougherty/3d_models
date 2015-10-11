@@ -1,0 +1,17 @@
+To convert freesurfer surfaces to stl:
+
+mris_convert surf/lh.pial lh.stl
+
+import lh and rh in meshlab
+Merge mesh layers to unify the hemispheres (Filters->Mesh Layer->Flatten Visible Layers)
+(or apply the following to each, then merge-- may work better)
+Apply taublin smoothing (100 iterations)
+Quadratic edge simplification (preserve topology and normals, percentage reduction: 0.05)
+Scale to .333 is good. .5 should work. Should try full-size.
+
+Building:
+0.3mm layer height is best. Need support material, glue stick on bed.
+
+per-hemisphere:
+LH: rotate 90 deg in y-axis
+
