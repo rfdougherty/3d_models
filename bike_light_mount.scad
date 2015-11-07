@@ -1,3 +1,8 @@
+// Adapted from http://www.thingiverse.com/thing:100764 to fit
+// common 7W single-AA flashlights such as the Ultrafire
+// http://www.amazon.com/UltraFire-300lm-Flashlight-Torch-Adjustable/dp/B006E0QAFY/
+// I simplfied the code a bit and added a lip to better accomodate the barrell.
+
 handlebarDiameter = 22.5;
 fudj = 0.5;
 flashlightDiameter1 = 25.0; // 22.5 for Ultrafire barrell, 17.5 for handle
@@ -31,7 +36,8 @@ module flashlightMount() {
 
 module handlebarMount() {
 	difference() {
-		translate([-(flashlightDiameter1-3)/2, yOffset - 2, -length/2])
+        // The +0.5 on yOffset reduces overhang to avoid the need for support
+		translate([-(flashlightDiameter1-3)/2, yOffset + 0.5, -length/2])
 			cube(size=[flashlightDiameter1-3, handlebarD, length], center=false);
 		translate([0,yOffset - 3,0])
 			rotate([0,90,0]) cylinder(r=handlebarD/2, h=length, center=true);
@@ -48,11 +54,9 @@ module zipCutouts() {
     }
 }
 module zipCutout() {
-	translate([0,yOffset - 5,0])
-	rotate([0,90,0])
-	rotate_extrude()
-	translate([handlebarD/2 + 1.25 + 2, 0, 0])
-		square(size=[2.5, 6], center=true);
+	translate([0,yOffset - 5,0]) rotate([0,90,0])
+	    rotate_extrude() translate([handlebarD/2 + 1.25 + 2, 0, 0])
+		    square(size=[2.5, 6], center=true);
 }
 
 module flashlightBody() {
