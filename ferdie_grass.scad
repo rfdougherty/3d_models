@@ -1,11 +1,13 @@
+// Derived from http://www.thingiverse.com/thing:211643
+
 //(mm)
-Height = 80;
+Height = 90;
 
 // (mm)
 Diameter = 100;
 
 // (mm)
-WallThickness = 1.6;
+WallThickness = 3;
 
 // Make a round pot?
 RoundPlanter = "Yes"; // [Yes, No]
@@ -25,26 +27,23 @@ wT = WallThickness == 0 ? 2 : abs(WallThickness);
 resHack = RoundPlanter == "Yes" ? roundRes : PlanterSides;
 res = resHack == 0 ? 4 : abs(resHack);
 
-//sHeight_Hold = SaucerHeight == "Small" ? 0.1 : 0.15;
-//sHeight = SaucerHeight == "Large" ? 0.2 : sHeight_Hold;
-
-offset = 3 * 1;
-baseR = 10 * 1;
+offset = WallThickness + .5;
+baseR = 10;
 
 h2 = (h4 * sHeight) + wT;
 h3 = h2 + (offset * 0.5) + wT;
 h1 = h3 - offset - wT;
 r1 = radius - offset - wT;
 
-maxRes = 16 * 1;
+maxRes = 16;
 
-faceOS = 0.01 * 1;
+faceOS = 0.01;
 faceOS2 = faceOS * 2;
 drainH_Hold = (h1 - 2) * 1.414;
 
 drainH = drainH_Hold < 5 ? 5 : drainH_Hold;
 
-iCount= res<=maxRes ? res : 4;
+iCount= res<=maxRes ? res : 6;
 
 union(){
 base();
@@ -64,7 +63,7 @@ module drain(){
 			rotate([90,0,(360/iCount) * (i + ((iCount - 2) % 4) * 0.25) ]) 
 				translate([0,(-.707*drainH),0]) 
 					rotate([0,0,45]) 
-						cube([drainH,drainH,r1]);}
+						cube([drainH,drainH*.6,r1]);}
 	}
 }
 
