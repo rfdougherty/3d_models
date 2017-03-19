@@ -1,13 +1,13 @@
 // Derived from http://www.thingiverse.com/thing:211643
 
 //(mm)
-Height = 90;
+Height = 95;
 
 // (mm)
 Diameter = 100;
 
 // (mm)
-WallThickness = 3;
+WallThickness = 2.5;
 
 // Make a round pot?
 RoundPlanter = "Yes"; // [Yes, No]
@@ -16,10 +16,10 @@ RoundPlanter = "Yes"; // [Yes, No]
 PlanterSides = 5;
 
 // Try .15 - .3
-sHeight = .25;
+sHeight = .20;
 
-roundRes = 200;
-userRes = 10 * 1;
+roundRes = 150;
+userRes = 10;
 /* error checking */
 h4 = Height == 0 ? 20 : abs(Height);
 radius = Diameter == 0 ? 20 : abs(Diameter / 2);
@@ -27,13 +27,12 @@ wT = WallThickness == 0 ? 2 : abs(WallThickness);
 resHack = RoundPlanter == "Yes" ? roundRes : PlanterSides;
 res = resHack == 0 ? 4 : abs(resHack);
 
-offset = WallThickness + .5;
-baseR = 10;
+offset = wT*2 + 1.0;
 
 h2 = (h4 * sHeight) + wT;
-h3 = h2 + (offset * 0.5) + wT;
+h3 = h2 + (offset/2) + wT;
 h1 = h3 - offset - wT;
-r1 = radius - offset - wT;
+r1 = radius - offset;
 
 maxRes = 16;
 
@@ -86,13 +85,15 @@ module top(){
 }
 
 module taper(){
-	translate([0,0,h1]) difference(){
-		cylinder(h = h3 - h1, r1 = r1, r2 = radius,$fn = res);
-
-		cylinder(h = h3 - h1, r1 = r1 - wT, r2 = radius - wT, $fn = res);
-		translate([0,0,h3 - h1 - faceOS]) 
-			cylinder(h = 1, r1 = radius - wT, r2 = radius - wT, $fn = res);
-		translate([0,0,-faceOS]) 
-			cylinder(h = faceOS2, r1 = r1 - wT, r2 = r1 - wT, $fn = res);}
+	translate([0,0,h1]){
+        difference(){
+		    cylinder(h = h3-h1, r1 = r1,    r2 = radius,    $fn = res);
+		    cylinder(h = h3-h1, r1 = r1-wT, r2 = radius-wT, $fn = res);
+		    translate([0,0,h3 - h1 - faceOS]) 
+			    cylinder(h = 1, r1 = radius-wT, r2 = radius-wT, $fn = res);
+		    translate([0,0,-faceOS]) 
+			    cylinder(h = faceOS2, r1 = r1-wT, r2 = r1-wT, $fn = res);
+        }
+    }
 }
 
