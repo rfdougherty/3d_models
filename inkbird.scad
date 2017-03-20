@@ -55,7 +55,7 @@ holes = [ //format [face_name, shape_name, shape_position[x_pos,y_pos,x_offs,y_o
   
   ["S", "Cylinder", [20, 0, 0, 0,0,"outside"], [wall_t+1.5, 5, 16]], //cutout for wires
 
-  ["N", "Rectangle", [0,0,0,0,0,"outside"], [9, 73, 33]],
+  ["N", "Rectangle", [0,0,0,0,0,"outside"], [9, 72, 33]],
    
 	];
 
