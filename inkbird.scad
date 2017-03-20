@@ -2,7 +2,7 @@
 a_bit=0.1;
 /* [User Controls] */
 //dimensions of the object to be packaged
-device_xyz=[70+10,70+30,29+10];
+device_xyz=[73+10,70+30,33+10];
 //size of the gap between each side of the object and the internal wall of the packaging
 clearance_xyz=[0.5,0.5,0.5];//
 //how thick the material of the packaging in each direction//recommend keeping X&Y value the same
@@ -18,7 +18,7 @@ corner_radius=1+clearance_xyz[1]+wall_t;
 corner_sides=9;
 
 //How high is the lip that connects the 2 halves?
-lip_h=2;
+lip_h=5;
 
 //How tall is the top relative to the bottom
 top_bottom_ratio=0.5;
@@ -38,7 +38,7 @@ flipped=true;//[true, false]
 separation=5;//2;
 
 //how much of an overlap (-ve) or gap (+ve) is there between the inner and outer lip surfaces, a value of 0 implies they meet perfectly in the middle
-lip_fit=0.35;
+lip_fit=0.25;
 
 //does it have an imported representaion of the actual device to be packaged?
 has_device=false;//true/false
@@ -46,27 +46,23 @@ has_device=false;//true/false
 //what style of box is it
 box_type="rounded6sides";//"rounded4sides";//"cuboid","rounded4sides", "rounded6sides", "chamfered6sides"
 
-seam_x = device_xyz[0]*top_bottom_ratio-wall_t + lip_h/2 - clearance_xyz[0]/2;
-
-switch_spacing = device_xyz[0]/8;
-
 //data structure defining all the cutouts and depressions used on the packaging
 holes = [ //format [face_name, shape_name, shape_position[x_pos,y_pos,x_offs,y_offs,rotate,align], shape_size[depth,,,]]
 
 	["W", "Cylinder", [-device_xyz[0]/2-2, 0, 0, 0,0,"outside"], [wall_t+1.5, 3, 16]], //cutout for sensor
   
-  ["S", "Cylinder", [-20, 0, 0, 0,0,"outside"], [wall_t+1.5, 5, 16]], //cutout for wires
+  ["S", "Cylinder", [-20, 0, 0, 0,0,"outside"], [wall_t+1.5, 3, 16]], //cutout for wires
   
   ["S", "Cylinder", [20, 0, 0, 0,0,"outside"], [wall_t+1.5, 5, 16]], //cutout for wires
 
-  ["N", "Rectangle", [0,0,0,0,0,"outside"], [9, 70, 29]],
+  ["N", "Rectangle", [0,0,0,0,0,"outside"], [9, 73, 33]],
    
 	];
 
 	post_tolerance=0.2;
 //data structure defining all the internal supporting structures used on the packaging
 strut_spacing = device_xyz[0]/4;
-strut_width = 3;
+strut_width = 3.0;
 posts = [ //format [face_name, shape_name shape_position[x_pos,y_pos,x_offs,y_offs,rotate,align], shape_size[depth,,,]]
 	// support struts
 	 ["B", "Rectangle", [-strut_spacing, 0, 0, 0, 0, "inside"], [5,strut_width,device_xyz[1]+wall_t]],
@@ -76,7 +72,11 @@ posts = [ //format [face_name, shape_name shape_position[x_pos,y_pos,x_offs,y_of
    ["B", "Rectangle", [strut_spacing, 0, 0, 0, 0, "inside"], [5,strut_width,device_xyz[1]+wall_t]],
    ["T", "Rectangle", [strut_spacing, 0, 0, 0, 0, "inside"], [5,strut_width,device_xyz[1]+wall_t]], 
    ["B", "Rectangle", [0, 0, 0, 0, 0, "inside"], [5,device_xyz[0]+wall_t,strut_width]],
-   ["T", "Rectangle", [0, 0, 0, 0, 0, "inside"], [5,device_xyz[0]+wall_t,strut_width]], 
+   ["T", "Rectangle", [0, 0, 0, 0, 0, "inside"], [5,device_xyz[0]+wall_t,strut_width]],
+   
+   ["B", "Hollow_Cylinder", [device_xyz[0]/2-2, 0, 0, 0, 0, "inside"], [device_xyz[2]+wall_t, 3.3, 1.8, 24]],
+   ["B", "Hollow_Cylinder", [-(device_xyz[0]/2-2), 0, 0, 0, 0, "inside"], [device_xyz[2]+wall_t, 3.3, 1.8, 24]],
+   
 	];
   
 //data structure defining all the engraved text used on the packaging
@@ -103,10 +103,6 @@ flanges=[
 //flange_sides, flange_type, position[x_pos, y_pos], shape_size[flange_t, flange_case_gap, flange_wall_t,slot_b,slot_l,flange_sides]
 	["N","rounded_slot",[0,0],	[flange_t,1,wall_t,slot_t,slot_w,corner_sides]],
 	["S","rounded_slot",[0,0],	[flange_t,1,wall_t,slot_t,slot_w,corner_sides]],
-	// ["E","rounded_slot",[0,0],	[flange_t,0,wall_t,slot_t,slot_w,corner_sides]],
-	// ["W","rounded_slot",[0,0],	[flange_t,0,wall_t,slot_t,slot_w,corner_sides]],
-	
-	//["S","2_holes",		[0,0], 	[flange_t,0,wall_t,hole_center_sep,hole_r,box_s]],//[]
 ];
 /* [Hidden] */
 //a small number used for manifoldness
