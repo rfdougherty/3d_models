@@ -2,7 +2,7 @@ $fn=200;
 
 length = 180;
 width= 80;
-height = 26;
+height = 30;
 cornerRadius = 3;
 slop = 0.1;
 thick = 2.0;
