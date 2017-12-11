@@ -9,9 +9,9 @@ pitch = 3.5;
 slop = 0.6;
 
 difference () {
-  cylinder (r=9, h=14, $fn=fn);
+  cylinder (r=9, h=10, $fn=fn);
   translate([0,0,2.1])
-    metric_thread(diameter=16, pitch=pitch, length=12, internal=true);
+    metric_thread(diameter=16, pitch=pitch, length=9, internal=true);
 }
 
 translate([-15,-20,0]) {
@@ -34,16 +34,52 @@ translate([-15,-20,0]) {
 
 translate([10,-30,0]) {
   difference() {
-    cube([16,led_width+4,led_height+1.5]);
+    cube([16,led_width+4,led_height+1.5+1.5]);
     translate([-.1,2,1.5])
-      cube([16.2,led_width,led_height+.1]);
+      cube([16.2,led_width,led_height+1.5+.1]);
+    translate([8,(led_width+4)/2,-0.1])
+      cylinder(r=3, h=3, $fn=fn);
+  }
+  translate([0,2,led_height]) {
+    difference() {
+      rotate([45,0,0])
+        cube([16,2.8,3]);
+      translate([-0.1,-1.5,3])
+        cube([16.2,4,3]);
+    }
+  }
+  translate([0,led_width+2,led_height]) {
+    difference() {
+      rotate([45,0,0])
+        cube([16,2.8,3]);
+      translate([-0.1,-1.5,3])
+        cube([16.2,4,3]);
+    }
   }
 }
 
 translate([10,10,0]) {
   difference() {
-    cube([16,led_width+4,led_height+1.5]);
+    cube([16,led_width+4,led_height+1.5+1.5]);
     translate([-.1,2,1.5])
-      cube([16.2,led_width,led_height+.1]);
+      cube([16.2,led_width,led_height+1.5+.1]);
+    translate([8,(led_width+4)/2,-0.1])
+      cylinder(r=3, h=3, $fn=fn);
+  }
+  translate([0,2,led_height]) {
+    difference() {
+      rotate([45,0,0])
+        cube([16,2.8,3]);
+      translate([-0.1,-1.5,3])
+        cube([16.2,4,3]);
+    }
+  }
+  translate([0,led_width+2,led_height]) {
+    difference() {
+      rotate([45,0,0])
+        cube([16,2.8,3]);
+      translate([-0.1,-1.5,3])
+        cube([16.2,4,3]);
+    }
   }
 }
