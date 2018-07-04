@@ -190,6 +190,10 @@ module flexbatter18650(n=1){
 
 module flexbatter18650P(n=1){
    flexbatter(n=n,l=67.5,d=18.4,hf=0.75,shd=3,eps=0.28);
+}
+
+module flexbatter18650Pex(n=1){
+   flexbatter(n=n,l=69.5,d=18.4,hf=0.75,shd=3,eps=0.28);
 }  
 
 module flexbatterCR123A(n=1){
@@ -279,6 +283,10 @@ module flexbatterAAAx4(){ // AUTO_MAKE_STL
 
 // uncomment as needed:
 
+flexbatter18650Pex(n=1);
+//translate([0,30,0])
+//    flexbatter18650Pex(n=1);
+
 //flexbatterCR123A(n=2);
 //rotate([0,0,0])translate([0,0,-9])flexbatter18650(n=1);
 //translate([0,40,0])rotate([90,0,0])translate([0,0,-9])flexbatter18650(n=1);
@@ -287,7 +295,7 @@ module flexbatterAAAx4(){ // AUTO_MAKE_STL
 //translate([0,33,0])flexbatter18650(n=2);
 //translate([0,90,0])flexbatter18650(n=3);
 //translate([-90,33,0])flexbatter18650(n=4);
-flexbatterAA(n=3);
+//flexbatterAA(n=3);
 //translate([0,50,0])flexbatterAAA(n=1);
 //flexbatterC(n=1);
 //flexbatterD(n=1);
