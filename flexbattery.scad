@@ -193,7 +193,7 @@ module flexbatter18650P(n=1){
 }
 
 module flexbatter18650Pex(n=1){
-   flexbatter(n=n,l=69.5,d=18.4,hf=0.75,shd=3,eps=0.28);
+   flexbatter(n=n,l=70.0,d=20.0,hf=0.75,shd=3,eps=0.28);
 }  
 
 module flexbatterCR123A(n=1){
@@ -282,7 +282,6 @@ module flexbatterAAAx4(){ // AUTO_MAKE_STL
 }
 
 // uncomment as needed:
-
 flexbatter18650Pex(n=1);
 //translate([0,30,0])
 //    flexbatter18650Pex(n=1);
