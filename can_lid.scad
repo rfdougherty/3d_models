@@ -27,42 +27,39 @@ Copyright (C) 2016 Diego Elgueda (delgueda@gmail.com)
 
 
 $fn = 360;
-thickness = 1.5;
-bg_circle = 85.0/2; // adjust this to be the diameter of your can
+thickness = 1.7;
+bg_circle = 90.0/2; // adjust this to be the diameter of your can
 sm_circle  = (bg_circle-5.5); // 59/2
 
-height = 6;
+height = 8;
 
 // edit lid label in line 71
 
 module lid(){
-    difference(){
-        cylinder(r=sm_circle, h=height);
- 
-        translate([0, 0, thickness]){
-            cylinder(r=(sm_circle-thickness), h=height);
-        }
-    }
+//    difference(){
+//        cylinder(r=sm_circle, h=height);
+//        translate([0, 0, thickness]){
+//            cylinder(r=(sm_circle-thickness), h=height);
+//        }
+//    }
 
-    translate([0, 0, height]){
-        difference(){
+    translate([0, 0, 0,]){ //height]){
+        //difference(){
             difference(){
                 cylinder(r=bg_circle, h=height);
-                translate([0, 0, thickness]){
+                translate([0, 0, thickness])
                     cylinder(r=(bg_circle-thickness), h=height);
-                }
-                
             }
-            cylinder(r=(sm_circle-thickness), h=height);
-        }
+            //cylinder(r=(sm_circle-thickness), h=height);
+        //}
     }
 
-    translate([0,0,(height*2)-thickness]){
-        difference(){
-            cylinder(r=bg_circle-thickness, h=thickness-0.1);
-            cylinder(r=bg_circle-thickness-1, h=thickness);
-        }
-    }
+//    translate([0,0,(height*2)-thickness]){
+//        difference(){
+//            cylinder(r=bg_circle-thickness, h=thickness-0.1);
+//            cylinder(r=bg_circle-thickness-1, h=thickness);
+//        }
+//    }
 }
 lid();
 
