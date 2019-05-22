@@ -134,7 +134,7 @@ lip_fit=0.35;
 has_device=false;//true/false
 
 //what style of box is it
-box_type="chamfered4sides";//"rounded4sides";//"cuboid","rounded4sides", "rounded6sides", "chamfered6sides", chamfered4sides
+box_type="rounded4sides2chamfered";//"rounded4sides";//"cuboid","rounded4sides", "rounded6sides", "chamfered6sides", "chamfered4sides", "rounded4sides2chamfered"
 
 seam_x = device_xyz[0]*top_bottom_ratio-wall_t + lip_h/2 - clearance_xyz[0]/2;
 
@@ -526,15 +526,16 @@ module half_box(box, corner_radius=3, corner_sides=5, lip_h=2, lip_fit=0, top_bo
 	}
 }
 
-module rounded_rectangle_cylinder_hull(x,y,z,r,s){
+module rounded_rectangle_cylinder_hull(x,y,z,r,s,chamfered=false){
 	//cube(size=[x,y,z],center=true);
 	//echo("number of sides",s);
+	h = chamfered ? (z-2*r) : z;
 	hull(){
 		cross_box(x,y,z,r);//this is to ensure the overall dimensions stay true to those requested even for low-poly cylinders
-		translate(v=[   x/2 -r ,   y/2 -r , 0])cylinder(h=z, r=r, center=true, $fn=4*s);
-		translate(v=[   x/2 -r , -(y/2 -r), 0])cylinder(h=z, r=r, center=true, $fn=4*s);
-		translate(v=[ -(x/2 -r), -(y/2 -r), 0])cylinder(h=z, r=r, center=true, $fn=4*s);
-		translate(v=[ -(x/2 -r),   y/2 -r , 0])cylinder(h=z, r=r, center=true, $fn=4*s);
+		translate(v=[   x/2 -r ,   y/2 -r , 0])cylinder(h=h, r=r, center=true, $fn=4*s);
+		translate(v=[   x/2 -r , -(y/2 -r), 0])cylinder(h=h, r=r, center=true, $fn=4*s);
+		translate(v=[ -(x/2 -r), -(y/2 -r), 0])cylinder(h=h, r=r, center=true, $fn=4*s);
+		translate(v=[ -(x/2 -r),   y/2 -r , 0])cylinder(h=h, r=r, center=true, $fn=4*s);
 	}
 }
 
@@ -755,6 +756,8 @@ module box_type(box, box_type="rounded4sides"){
 		cube(size=[box[0],box[1],box[2]],center=true);
 	}else if(box_type=="rounded4sides"){
 		rounded_rectangle_cylinder_hull(box[0],box[1],box[2],box[3],box[4]);
+	}else if(box_type=="rounded4sides2chamfered"){
+		rounded_rectangle_cylinder_hull(box[0],box[1],box[2],box[3],box[4],chamfered=true);
 	}else if(box_type=="rounded6sides"){
 		rounded_rectangle_sphere_hull(box[0],box[1],box[2],box[3],box[4]);
 	}else if(box_type=="chamfered6sides"){
