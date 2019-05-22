@@ -134,7 +134,7 @@ lip_fit=0.35;
 has_device=false;//true/false
 
 //what style of box is it
-box_type="rounded6sides";//"rounded4sides";//"cuboid","rounded4sides", "rounded6sides", "chamfered6sides"
+box_type="chamfered4sides";//"rounded4sides";//"cuboid","rounded4sides", "rounded6sides", "chamfered6sides", chamfered4sides
 
 seam_x = device_xyz[0]*top_bottom_ratio-wall_t + lip_h/2 - clearance_xyz[0]/2;
 
@@ -538,10 +538,11 @@ module rounded_rectangle_cylinder_hull(x,y,z,r,s){
 	}
 }
 
-module cross_box(x,y,z,r){
-	cube(size=[x-2*r,y-2*r,z],center=true);
-	cube(size=[x-2*r,y,z-2*r],center=true);
-	cube(size=[x,y-2*r,z-2*r],center=true);
+module cross_box(x,y,z,r,rz=false) {
+	rz = (rz==false) ? r : rz; // default value of rz=r
+	cube(size=[x-2*r, y-2*r, z],     center=true);
+	cube(size=[x-2*r, y,     z-2*rz], center=true);
+	cube(size=[x,     y-2*r, z-2*rz], center=true);
 }
 
 module make_cutouts(box, holes){
@@ -757,15 +758,17 @@ module box_type(box, box_type="rounded4sides"){
 	}else if(box_type=="rounded6sides"){
 		rounded_rectangle_sphere_hull(box[0],box[1],box[2],box[3],box[4]);
 	}else if(box_type=="chamfered6sides"){
-		chamfered_rectangle_hull(box[0],box[1],box[2],box[3]);
+		chamfered_rectangle_hull(box[0],box[1],box[2],box[3],box[3]);
+	}else if(box_type=="chamfered4sides"){
+		chamfered_rectangle_hull(box[0],box[1],box[2],box[3],0);
 	}else{
 		echo ("unknown box type requested",box_type);
 	}
 }
 
-module chamfered_rectangle_hull(x,y,z,r){
+module chamfered_rectangle_hull(x,y,z,r,rz){
 	hull(){
-		cross_box(x,y,z,r);//this is to ensure the overall dimensions stay true to those requested even for low-poly cylinders
+		cross_box(x,y,z,r,rz);//this is to ensure the overall dimensions stay true to those requested even for low-poly cylinders
 	}
 }
 
