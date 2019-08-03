@@ -1,12 +1,12 @@
 $fs=0.2;
 
-length = 90; //4.1 * 25.4;
-width= 55; //3.1 * 25.4;
-height = 55; //1.6 * 25.4;
+length = 92; //4.1 * 25.4;
+width= 65; //3.1 * 25.4;
+height = 40; //1.6 * 25.4;
 cornerRadius = 3;
 slop = 0.1;
 thick = 2.0;
-wireRadius = 6;
+wireRadius = 5;
 ventRadius = 1.0;
 usbRadius = 6;
 
@@ -21,19 +21,15 @@ translate([cornerRadius, cornerRadius, 0]){
       roundedBox(length-thick*2, width-thick*2, height-thick+slop, cornerRadius);
 
     // Hole for wires
-    translate([centerWidth, -thick/3, height-(wireRadius/2)])
+    translate([centerWidth, -thick/3, height-(wireRadius/1.1)])
       rotate([90,0,0])
         cylinder(r=wireRadius, h=thick*2);
-    //translate([centerWidth, length-thick, height-(wireRadius/2)])
-    //  rotate([90,0,0])
-    //    cylinder(r=wireRadius, h=thick*2);
     
     // Hole for usb
     //translate([-cornerRadius-slop, centerWidth-usbRadius, thick+usbRadius+slop])
-    translate([centerWidth-usbRadius, length-thick, thick+usbRadius/2+slop])
-      rotate([90,0,0])
-        cube(size=[usbRadius*2,usbRadius,thick*2+slop*3]);
-        //cylinder(r=usbRadius, h=thick+slop*3);
+//    translate([centerWidth-usbRadius, length-thick, thick+usbRadius/2+slop])
+//      rotate([90,0,0])
+//        cube(size=[usbRadius*2,usbRadius,thick*2+slop*3]);
 
     // Vent holes
     for(x = [cornerRadius+15: 10: length-cornerRadius-15])
@@ -65,11 +61,11 @@ translate([cornerRadius, cornerRadius, 0]){
   }
   
   // support for usb hole
-  for(x = [-usbRadius/2.4, .9, usbRadius/1.4])
-    translate([centerWidth - x, length-cornerRadius-thick, thick+usbRadius*1.5+slop])
-    //translate([-cornerRadius, centerWidth-x, thick+usbRadius+slop])
-      rotate([0,90,0])
-        cube(size=[usbRadius+slop*4, thick, 1.2]);
+//  for(x = [-usbRadius/2.4, .9, usbRadius/1.4])
+//    translate([centerWidth - x, length-cornerRadius-thick, thick+usbRadius*1.5+slop])
+//    //translate([-cornerRadius, centerWidth-x, thick+usbRadius+slop])
+//      rotate([0,90,0])
+//        cube(size=[usbRadius+slop*4, thick, 1.2]);
 }
 
 // Make the lid
