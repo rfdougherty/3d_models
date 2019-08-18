@@ -23,6 +23,9 @@ translate([cornerRadius, cornerRadius, 0]){
       rotate([90,0,0])
         cylinder(r=wireRadius, h=thick*2);
 
+    translate([-thick*2, length/1.4, height-(wireRadius/1.1)])
+      rotate([0,90,0])
+        cylinder(r=wireRadius, h=thick*2);
   }
 }
 
