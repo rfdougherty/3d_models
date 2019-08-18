@@ -1,7 +1,7 @@
 $fs=0.2;
 
 length = 85; //4.1 * 25.4;
-width= 45; //3.1 * 25.4;
+width= 50; //3.1 * 25.4;
 height = 35; //1.6 * 25.4;
 cornerRadius = 3;
 slop = 0.1;
