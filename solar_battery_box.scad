@@ -3,8 +3,8 @@ $fs=0.2;
 // NOTE: length/width/height are exterior dimensions. Interior dimensions 
 // are thick*2 smaller than these.
 length = 85; //4.1 * 25.4;
-width= 50; //3.1 * 25.4;
-height = 32; //1.6 * 25.4;
+width= 48; //3.1 * 25.4;
+height = 30; //1.6 * 25.4;
 cornerRadius = 3;
 slop = 0.1;
 thick = 2.0;
