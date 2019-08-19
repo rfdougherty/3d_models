@@ -8,8 +8,10 @@ height = 32; //1.6 * 25.4;
 cornerRadius = 3;
 slop = 0.1;
 thick = 2.0;
-wireRadius = 3;
+wireRadius = 2.7;
 lidRimHeight = 4;
+// Not sure why, but the side hole comes out wider than the diameter of the end hole.
+sideWireRadius = wireRadius * (6/7);
 
 lidSlop = 0.2; // the rim on the lid will be this much smaller than the box
 
@@ -31,10 +33,10 @@ translate([cornerRadius, cornerRadius, 0]){
 
     translate([-thick*2, length/1.4, height-wireRadius])
       rotate([0,90,0])
-        cylinder(r=wireRadius, h=thick*2);
-    translate([-thick*2, length/1.4-wireRadius, height+.2])
+        cylinder(r=sideWireRadius, h=thick*2);
+    translate([-thick*2, length/1.4-sideWireRadius, height+.2])
       rotate([0,90,0])
-        cube(size=[wireRadius+.2, wireRadius*2, thick*2], center=false);
+        cube(size=[sideWireRadius+.2, sideWireRadius*2, thick*2], center=false);
   }
 }
 
@@ -49,12 +51,12 @@ translate([width*2+5, cornerRadius, 0]){
       translate([lidThick*2, lidThick*2, 0+slop])
         roundedBox(length-lidThick*4, width-lidThick*4, thick+lidRimHeight+slop, cornerRadius);
       // Hole for wires
-      translate([width/2, lidThick+.2, thick*3])
+      translate([width/2-wireRadius, lidThick+.2, thick*3])
         rotate([90,0,0])
           cylinder(r=wireRadius, h=lidThick*2);
       translate([-lidThick + .2, length/1.4, thick*3])
         rotate([0,90,0])
-          cylinder(r=wireRadius, h=lidThick*2);
+          cylinder(r=sideWireRadius, h=lidThick*2);
     }
   }
 }
