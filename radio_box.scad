@@ -42,7 +42,7 @@ translate([width*2+5, cornerRadius, 0]){
         translate([lidThick, lidThick, 0])
           roundedBox(length-lidThick*2, width-lidThick*2, thick+lidRimHeight, cornerRadius);
       }
-      translate([lidThick*2, lidThick*2, 0+slop])
+      translate([lidThick*2, lidThick*2, lidThick+slop])
         roundedBox(length-lidThick*4, width-lidThick*4, thick+lidRimHeight+slop, cornerRadius);
 
       // Hole for speakers
