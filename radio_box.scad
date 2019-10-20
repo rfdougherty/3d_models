@@ -9,7 +9,7 @@ cornerRadius = 3;
 slop = 0.1;
 thick = 2.0;
 wireRadius = 6;
-speakerRadius = 27;
+speakerRadius = 26;
 lidRimHeight = 5;
 
 lidSlop = 0.2; // the rim on the lid will be this much smaller than the box
