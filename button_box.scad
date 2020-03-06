@@ -134,7 +134,9 @@ lip_fit=0.35;
 has_device=false;//true/false
 
 //what style of box is it
-box_type="rounded6sides";//"rounded4sides";//"cuboid","rounded4sides", "rounded6sides", "chamfered6sides"
+box_type="rounded6sides2chamfered";//"rounded4sides";//"cuboid","rounded4sides", "rounded6sides", "chamfered6sides", "chamfered4sides", "rounded4sides2chamfered", "rounded6sides2chamfered"
+
+$pma = 45; // Printing Minimal Angle - Minimum angle printed regularly without supports
 
 seam_x = device_xyz[0]*top_bottom_ratio-wall_t + lip_h/2 - clearance_xyz[0]/2;
 
@@ -526,22 +528,24 @@ module half_box(box, corner_radius=3, corner_sides=5, lip_h=2, lip_fit=0, top_bo
 	}
 }
 
-module rounded_rectangle_cylinder_hull(x,y,z,r,s){
+module rounded_rectangle_cylinder_hull(x,y,z,r,s,chamfered=false){
 	//cube(size=[x,y,z],center=true);
 	//echo("number of sides",s);
+	h = chamfered ? (z-2*r) : z;
 	hull(){
 		cross_box(x,y,z,r);//this is to ensure the overall dimensions stay true to those requested even for low-poly cylinders
-		translate(v=[   x/2 -r ,   y/2 -r , 0])cylinder(h=z, r=r, center=true, $fn=4*s);
-		translate(v=[   x/2 -r , -(y/2 -r), 0])cylinder(h=z, r=r, center=true, $fn=4*s);
-		translate(v=[ -(x/2 -r), -(y/2 -r), 0])cylinder(h=z, r=r, center=true, $fn=4*s);
-		translate(v=[ -(x/2 -r),   y/2 -r , 0])cylinder(h=z, r=r, center=true, $fn=4*s);
+		translate(v=[   x/2 -r ,   y/2 -r , 0])cylinder(h=h, r=r, center=true, $fn=4*s);
+		translate(v=[   x/2 -r , -(y/2 -r), 0])cylinder(h=h, r=r, center=true, $fn=4*s);
+		translate(v=[ -(x/2 -r), -(y/2 -r), 0])cylinder(h=h, r=r, center=true, $fn=4*s);
+		translate(v=[ -(x/2 -r),   y/2 -r , 0])cylinder(h=h, r=r, center=true, $fn=4*s);
 	}
 }
 
-module cross_box(x,y,z,r){
-	cube(size=[x-2*r,y-2*r,z],center=true);
-	cube(size=[x-2*r,y,z-2*r],center=true);
-	cube(size=[x,y-2*r,z-2*r],center=true);
+module cross_box(x,y,z,r,rz=false) {
+	rz = (rz==false) ? r : rz; // default value of rz=r
+	cube(size=[x-2*r, y-2*r, z],     center=true);
+	cube(size=[x-2*r, y,     z-2*rz], center=true);
+	cube(size=[x,     y-2*r, z-2*rz], center=true);
 }
 
 module make_cutouts(box, holes){
@@ -754,32 +758,50 @@ module box_type(box, box_type="rounded4sides"){
 		cube(size=[box[0],box[1],box[2]],center=true);
 	}else if(box_type=="rounded4sides"){
 		rounded_rectangle_cylinder_hull(box[0],box[1],box[2],box[3],box[4]);
+	}else if(box_type=="rounded4sides2chamfered"){
+		rounded_rectangle_cylinder_hull(box[0],box[1],box[2],box[3],box[4],chamfered=true);
 	}else if(box_type=="rounded6sides"){
-		rounded_rectangle_sphere_hull(box[0],box[1],box[2],box[3],box[4]);
+		rounded_rectangle_sphere_hull(box[0],box[1],box[2],box[3],box[4],0);
+	}else if(box_type=="rounded6sides2chamfered"){
+		rounded_rectangle_sphere_hull(box[0],box[1],box[2],box[3],box[4],$pma);
 	}else if(box_type=="chamfered6sides"){
-		chamfered_rectangle_hull(box[0],box[1],box[2],box[3]);
+		chamfered_rectangle_hull(box[0],box[1],box[2],box[3],box[3]);
+	}else if(box_type=="chamfered4sides"){
+		chamfered_rectangle_hull(box[0],box[1],box[2],box[3],0);
 	}else{
 		echo ("unknown box type requested",box_type);
 	}
 }
 
-module chamfered_rectangle_hull(x,y,z,r){
+module chamfered_rectangle_hull(x,y,z,r,rz){
 	hull(){
-		cross_box(x,y,z,r);//this is to ensure the overall dimensions stay true to those requested even for low-poly cylinders
+		cross_box(x,y,z,r,rz);//this is to ensure the overall dimensions stay true to those requested even for low-poly cylinders
 	}
 }
 
-module rounded_rectangle_sphere_hull(x,y,z,r,s){
+module rounded_rectangle_sphere_hull(x,y,z,r,s,chamfered_angle) {
 	hull(){
 		cross_box(x,y,z,r);//this is to ensure the overall dimensions stay true to those requested even for low-poly cylinders
-		translate(v=[   x/2 -r ,   y/2 -r ,   z/2 -r ])sphere(r=r, $fn=4*s);
-		translate(v=[   x/2 -r , -(y/2 -r),   z/2 -r ])sphere(r=r,$fn=4*s);
-		translate(v=[ -(x/2 -r), -(y/2 -r),   z/2 -r ])sphere(r=r,$fn=4*s);
-		translate(v=[ -(x/2 -r),   y/2 -r ,   z/2 -r ])sphere(r=r,$fn=4*s);
-		translate(v=[   x/2 -r ,   y/2 -r , -(z/2 -r)])sphere(r=r, $fn=4*s);
-		translate(v=[   x/2 -r , -(y/2 -r), -(z/2 -r)])sphere(r=r, $fn=4*s);
-		translate(v=[ -(x/2 -r), -(y/2 -r), -(z/2 -r)])sphere(r=r, $fn=4*s);
-		translate(v=[ -(x/2 -r),   y/2 -r , -(z/2 -r)])sphere(r=r, $fn=4*s);
+		translate(v=[   x/2 -r ,   y/2 -r ,   z/2 -r ]) chamfered_sphere(r,s,chamfered_angle);
+		translate(v=[   x/2 -r , -(y/2 -r),   z/2 -r ]) chamfered_sphere(r,s,chamfered_angle);
+		translate(v=[ -(x/2 -r), -(y/2 -r),   z/2 -r ]) chamfered_sphere(r,s,chamfered_angle);
+		translate(v=[ -(x/2 -r),   y/2 -r ,   z/2 -r ]) chamfered_sphere(r,s,chamfered_angle);
+		translate(v=[   x/2 -r ,   y/2 -r , -(z/2 -r)]) chamfered_sphere(r,s,chamfered_angle);
+		translate(v=[   x/2 -r , -(y/2 -r), -(z/2 -r)]) chamfered_sphere(r,s,chamfered_angle);
+		translate(v=[ -(x/2 -r), -(y/2 -r), -(z/2 -r)]) chamfered_sphere(r,s,chamfered_angle);
+		translate(v=[ -(x/2 -r),   y/2 -r , -(z/2 -r)]) chamfered_sphere(r,s,chamfered_angle);
+	}
+}
+
+module chamfered_sphere(r,s,chamfered_angle) {
+	if (chamfered_angle > 0) {
+		chamfered = r * tan(chamfered_angle/2);
+		hull() {
+			sphere(r=r, $fn=4*s);
+			cylinder(r=chamfered, h=r*2, $fn=4*s, center=true);
+		}
+	} else {
+		sphere(r=r, $fn=4*s);
 	}
 }
 
