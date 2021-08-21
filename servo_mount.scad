@@ -1,13 +1,13 @@
-height = 1.75;
-servo_w = 12.5;
-servo_l = 24.0;
+height = 2.0;
+servo_w = 12.1;
+servo_l = 24.1;
 side = 5.0;
 servo_ow = servo_w + side*2;
 servo_ol = servo_l + side*2;
 screw_rad = 0.8;
-screw_off = 1.2;
+screw_off = 2.0;
 mount_rad = 1.9;
-mount_wide = 15 + side;
+mount_wide = 15 + side - 2;
 
 module servo(h){
   difference(){
