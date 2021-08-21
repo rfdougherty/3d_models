@@ -7,7 +7,7 @@ servo_ol = servo_l + side*2;
 screw_rad = 0.8;
 screw_off = 2.0;
 mount_rad = 1.9;
-mount_wide = 15 + side - 3;
+mount_wide = 15;
 
 module servo(h){
   difference(){
@@ -29,13 +29,14 @@ module servo(h){
 $fa = 8;
 $fs = 0.3;
 
-servo(h=height);
-difference(){
-  translate([servo_ow/2 + mount_wide/2 - side, 0, 0])
-    cube(size=[mount_wide-2, servo_ol, height], center=true);
-  for(y=[-12, 0, 12]) 
-      translate([servo_w/2 + mount_wide/2, y, -.01]) 
-        cylinder(r=mount_rad, h=height*2+.1, center=true);
+translate([0, 0, height/2]) {
+  servo(h=height);
+  difference(){
+    translate([servo_ow/2 + mount_wide/2 - side, 0, 0])
+      cube(size=[mount_wide-1, servo_ol, height], center=true);
+    for(y=[-12, 0, 12]) 
+        translate([servo_w/2 + mount_wide/2, y, -.01]) 
+          cylinder(r=mount_rad, h=height*2+.1, center=true);
+  }
 }
-
 
