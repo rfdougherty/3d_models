@@ -4,26 +4,20 @@ tab_depth = 5;
 tab_width = 10;
 // 5mm to the edge of the tract, the guide bar is 3mm (+/- 1mm on either side)
 tab_dim = 3;
-height = 100;
 thick = 3;
 slat_height = 15;
 hinge_thick = 5;
 hinge_shell_thick = 1.4;
 hinge_clearance = 0.2;
 
-type = "door2";
+height = 200;
+npanels = floor(height/slat_height);
 
-if(type=="door"){
-  for(i=[0:height/slat_height-1])
-      translate([0, slat_height*(i-1), 0]) liston(width, slat_height);  
-}
-if(type=="door1"){
-  liston(width, slat_height);
-}
-if(type=="door2"){
-  liston(width, slat_height);
-  translate([0, slat_height, 0]) liston(width, slat_height);
-}
+echo(npanels);
+
+for(i=[0:height/slat_height-1])
+  translate([0, slat_height*(i-1), 0]) 
+    liston(width, slat_height);
 
 
 // LISTON: Draws a piece of roller door
