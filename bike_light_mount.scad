@@ -5,13 +5,13 @@
 
 handlebarDiameter = 22.5;
 fudj = 0.5;
-flashlightDiameter1 = 25.0; // 22.5 for Ultrafire barrell, 17.5 for handle
-flashlightDiameter2 = 20.0;
+flashlightDiameter1 = 26.0; // 22.5 for Ultrafire barrell, 17.5 for handle
+flashlightDiameter2 = 26.0; // 25.0, 20.0 for ?
 lip = 7;
-addedThickness = 1.0;
+addedThickness = 1.2;
 $fn = 60;
 
-handlebarD = handlebarDiameter + 0.8 + fudj; // inner tube is .8mm thick
+handlebarD = handlebarDiameter + fudj;
 length = handlebarD + 6;
 circumradius1 = flashlightDiameter1/2 + fudj;
 circumradius2 = flashlightDiameter2/2 + fudj;
